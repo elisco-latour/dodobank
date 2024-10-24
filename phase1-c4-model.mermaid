@@ -38,17 +38,17 @@ Container_Boundary(resource_server, "Resource Server") {
 }
 
 Container_Boundary(bff_components, "BFF Components") {
-    Component(auth_controller, "Auth Controller", "Spring MVC Controller", "Handles authentication endpoints")
-    Component(proxy_controller, "Proxy Controller", "Spring MVC Controller", "Handles API proxying")
-    Component(token_service, "Token Service", "Spring Service", "Manages token operations")
-    Component(session_service, "Session Service", "Spring Service", "Manages user sessions")
+    Container(auth_controller, "Auth Controller", "Spring MVC Controller", "Handles authentication endpoints")
+    Container(token_service, "Token Service", "Spring Service", "Manages token operations")
+    Container(proxy_controller, "Proxy Controller", "Spring MVC Controller", "Handles API proxying")
+    Container(session_service, "Session Service", "Spring Service", "Manages user sessions")
 }
 
 Container_Boundary(resource_components, "Resource Server Components") {
-    Component(security_filter, "Security Filter", "Spring Security", "Validates JWT tokens")
-    Component(resource_controller, "Resource Controllers", "Spring MVC Controllers", "Handle business endpoints")
-    Component(business_service, "Business Services", "Spring Services", "Implement business logic")
-    Component(data_repository, "Data Repositories", "Spring Data JPA", "Handle data access")
+Container(security_filter, "Security Filter", "Spring Security", "Validates JWT tokens")
+    Container(resource_controller, "Resource Controllers", "Spring MVC Controllers", "Handle business endpoints")
+    Container(business_service, "Business Services", "Spring Services", "Implement business logic")
+    Container(data_repository, "Data Repositories", "Spring Data JPA", "Handle data access")
 }
 
 Rel(vue_app, vue_router, "Uses")
