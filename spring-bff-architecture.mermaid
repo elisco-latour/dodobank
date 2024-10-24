@@ -1,0 +1,25 @@
+graph TD
+    A[Vue.js Frontend] -->|HTTPS| B[Spring BFF]
+    B -->|OAuth2| C[Keycloak]
+    
+    subgraph Spring Cloud Infrastructure
+        D[Service Registry]
+        E[Config Server]
+        F[Circuit Breaker]
+        G[Gateway]
+    end
+    
+    B -->|Discovery| D
+    B -->|Configuration| E
+    B -->|Resilience4j| F
+    B -->|Routing| G
+    
+    subgraph Microservices
+        H[Service A]
+        I[Service B]
+        J[Service C]
+    end
+    
+    G -->|Load Balanced| H
+    G -->|Load Balanced| I
+    G -->|Load Balanced| J

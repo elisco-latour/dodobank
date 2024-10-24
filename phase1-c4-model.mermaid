@@ -1,0 +1,72 @@
+C4Context
+    title System Context diagram for Secure Platform - Phase 1
+
+    Person_Ext(user, "End User", "A user of the secure platform")
+    
+    Enterprise_Boundary(system, "Phase 1 System") {
+        System(spa, "Vue.js Frontend", "Single Page Application that provides the user interface")
+        System(bff, "Spring BFF", "Backend-For-Frontend that handles authentication and API proxying")
+        System(api, "Spring Resource Server", "Monolithic REST API providing business functionality")
+        System_Ext(keycloak, "Keycloak", "Identity and Access Management server")
+    }
+    
+    Rel(user, spa, "Uses", "HTTPS")
+    Rel(spa, bff, "Makes API calls", "HTTPS")
+    Rel(bff, api, "Forwards authenticated requests", "HTTPS + JWT")
+    Rel(bff, keycloak, "Authenticates users", "OAuth2/OIDC")
+    Rel(api, keycloak, "Validates tokens", "OAuth2")
+
+Container(vue_app, "Vue.js Application", "Vue 3 + TypeScript", "Provides the user interface")
+Container_Boundary(frontend, "Frontend") {
+    Container(vue_router, "Vue Router", "Vue Router 4", "Handles client-side routing")
+    Container(api_client, "API Client", "Axios", "Handles API communications")
+    Container(state_mgmt, "State Management", "Pinia", "Manages frontend application state")
+}
+
+Container_Boundary(bff_boundary, "BFF") {
+    Container(bff_web, "BFF Web Application", "Spring Boot", "Handles API requests and authentication")
+    Container(oauth_client, "OAuth2 Client", "Spring Security", "Manages OAuth2 flow and tokens")
+    Container(session_mgmt, "Session Management", "Spring Session", "Manages user sessions")
+    Container(proxy_service, "Proxy Service", "WebClient", "Proxies requests to Resource Server")
+}
+
+Container_Boundary(resource_server, "Resource Server") {
+    Container(resource_app, "REST API", "Spring Boot", "Handles business logic")
+    Container(security_config, "Security Config", "Spring Security", "Configures OAuth2 resource server")
+    Container(service_layer, "Service Layer", "Spring Services", "Implements business logic")
+    ContainerDb(database, "Database", "PostgreSQL", "Stores application data")
+}
+
+Container_Boundary(bff_components, "BFF Components") {
+    Component(auth_controller, "Auth Controller", "Spring MVC Controller", "Handles authentication endpoints")
+    Component(proxy_controller, "Proxy Controller", "Spring MVC Controller", "Handles API proxying")
+    Component(token_service, "Token Service", "Spring Service", "Manages token operations")
+    Component(session_service, "Session Service", "Spring Service", "Manages user sessions")
+}
+
+Container_Boundary(resource_components, "Resource Server Components") {
+    Component(security_filter, "Security Filter", "Spring Security", "Validates JWT tokens")
+    Component(resource_controller, "Resource Controllers", "Spring MVC Controllers", "Handle business endpoints")
+    Component(business_service, "Business Services", "Spring Services", "Implement business logic")
+    Component(data_repository, "Data Repositories", "Spring Data JPA", "Handle data access")
+}
+
+Rel(vue_app, vue_router, "Uses")
+Rel(vue_app, api_client, "Uses")
+Rel(vue_app, state_mgmt, "Uses")
+
+Rel(bff_web, oauth_client, "Uses")
+Rel(bff_web, session_mgmt, "Uses")
+Rel(bff_web, proxy_service, "Uses")
+
+Rel(resource_app, security_config, "Uses")
+Rel(resource_app, service_layer, "Uses")
+Rel(service_layer, database, "Reads/Writes")
+
+Rel(auth_controller, token_service, "Uses")
+Rel(proxy_controller, session_service, "Uses")
+Rel(proxy_controller, token_service, "Uses")
+
+Rel(resource_controller, business_service, "Uses")
+Rel(business_service, data_repository, "Uses")
+Rel(security_filter, resource_controller, "Protects")

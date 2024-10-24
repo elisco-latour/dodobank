@@ -1,0 +1,20 @@
+graph TB
+    subgraph "Phase 1: Basic Setup"
+        A[Vue.js Frontend] -->|HTTPS| B[Spring BFF]
+        B -->|OAuth2| C[Keycloak]
+        B -->|JWT| D[Spring Monolith]
+    end
+
+    subgraph "Phase 2: Preparation for Microservices"
+        A2[Vue.js Frontend] -->|HTTPS| B2[Spring BFF with Gateway]
+        B2 -->|OAuth2| C2[Keycloak]
+        B2 -->|JWT| D2[Spring Monolith with Domain Boundaries]
+    end
+
+    subgraph "Phase 3: Microservices"
+        A3[Vue.js Frontend] -->|HTTPS| B3[Spring BFF Gateway]
+        B3 -->|OAuth2| C3[Keycloak]
+        B3 -->|JWT| D3[Service A]
+        B3 -->|JWT| E3[Service B]
+        B3 -->|JWT| F3[Service C]
+    end

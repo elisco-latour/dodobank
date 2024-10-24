@@ -1,0 +1,40 @@
+C4Context
+    title System Context diagram for Secure Platform
+
+    Person(user, "User", "A user of the secure platform")
+    
+    Enterprise_Boundary(b0, "Enterprise Boundary") {
+        System(spa, "Vue.js Frontend", "Single Page Application that provides the user interface")
+        System(bff, "BFF Service", "Backend-For-Frontend that handles session management and token operations")
+        System(api, "Resource Server", "Spring-based REST API that provides business functionalities")
+        System(keycloak, "Keycloak", "Identity and Access Management server")
+    }
+    
+    Rel(user, spa, "Uses", "HTTPS")
+    Rel(spa, bff, "Makes API calls", "HTTPS")
+    Rel(bff, api, "Forwards authenticated requests", "HTTPS + JWT")
+    Rel(bff, keycloak, "Authenticates and gets tokens", "OAuth2/OIDC")
+    Rel(api, keycloak, "Validates tokens", "OAuth2")
+
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+Container_Boundary(c1, "Container diagram for BFF Service") {
+    Container(web_app, "BFF Web Application", "Node.js/Express", "Handles API requests and manages user sessions")
+    Container(session_store, "Session Store", "Redis", "Stores user sessions and related tokens")
+    
+    ContainerDb(token_cache, "Token Cache", "Redis", "Caches access and refresh tokens")
+}
+
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+Container_Boundary(c2, "Container diagram for Resource Server") {
+    Container(rest_api, "REST API", "Spring Boot", "Handles business logic and data operations")
+    Container(security_config, "Security Config", "Spring Security", "Configures OAuth2 resource server")
+    
+    ContainerDb(database, "Database", "PostgreSQL", "Stores application data")
+}
+
+Rel(web_app, session_store, "Reads/Writes session data")
+Rel(web_app, token_cache, "Manages tokens")
+Rel(rest_api, security_config, "Uses")
+Rel(rest_api, database, "Reads/Writes data")
