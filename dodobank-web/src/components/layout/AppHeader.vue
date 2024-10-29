@@ -15,6 +15,9 @@ console.log('Here is the app Header');
                 <div class="container">
                     <ul class="navbar-nav">
                         <li class="navbar-item">
+                            <RouterLink class="nav-link" to="/">Home</RouterLink>
+                        </li>
+                        <li class="navbar-item">
                             <RouterLink class="nav-link" to="/">Products</RouterLink>
                         </li>
                         <li class="navbar-item">
