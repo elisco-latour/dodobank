@@ -6,7 +6,7 @@
            Any Time. <br>
            You're rady!
         </h2>
-        <a href="#" class="btn btn-success">Learn more</a>
+        <a href="#" class="btn btn-success btn-lg">Locate our ATMs</a>
     </div>
 </template>
 <style scoped>

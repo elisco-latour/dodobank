@@ -2,15 +2,15 @@
     <div id="home-auth__section">
         <h2 class="fw-light">Online Banking</h2>
         <div id="auth-actions">
-            <a id="login-button" rel="stylesheet" href="#" class="btn btn-success">Log In</a>
-            <a id="signup-button" rel="stylesheet" href="#" class="btn btn-outline-secondary">
+            <a id="login-button" rel="stylesheet" href="#" class="btn btn-success btn-lg">Log In</a>
+            <a id="signup-button" rel="stylesheet" href="#" class="btn btn-outline-secondary btn-lg">
                 Sign Up
                 <i class="bi bi-arrow-right-short"></i>
             </a>
         </div>
         <ul id="auth-actions-nav">
             <li><a href="">Learn more about Personal Online Banking <i class="bi bi-arrow-right-short"></i></a></li>
-            <li><a href="">Learn more about Small Business OOnline Banking <i class="bi bi-arrow-right-short"></i></a>
+            <li><a href="">Learn more about Small Business Online Banking <i class="bi bi-arrow-right-short"></i></a>
             </li>
         </ul>
     </div>

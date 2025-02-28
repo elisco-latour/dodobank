@@ -28,6 +28,10 @@
   --dodobank-gap-24: 24px;
 }
 
+:root {
+  --dodobank-image-radius: 0.5rem;
+}
+
 /* semantic color variables for this project */
 :root {
   --color-background: var(--dodobank-color-white);
@@ -66,6 +70,9 @@
 }
 
 body {
+  
+  -webkit-text-size-adjust: 100%;
+
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);

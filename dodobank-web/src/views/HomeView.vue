@@ -31,15 +31,15 @@ import HomeServicesList from '@/components/home/HomeServicesList.vue';
   </div>
   <div class="container-fluid">
     <div class="container">
-      <section id="app-home-services" class="py-5 text-center">
+      <section id="app-home-services" class="text-center">
         <div class="row py-lg-5">
           <div class="col-lg-8 col-md-8 mx-auto">
             <HomeServicesHeader />
-            <HomeServicesList/>
           </div>
         </div>
       </section>
     </div>
+    <HomeServicesList/>
   </div>
 </template>
 <style scoped>
